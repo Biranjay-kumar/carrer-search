@@ -3,7 +3,9 @@ import "./App.css";
 import Navbar from "./components/shared/Navbar";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
-import Home from "./components/Home";
+import Home from "./Home";
+import Jobs from "./components/Jobs";
+import Browse from "./components/Browse";
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -16,6 +18,14 @@ const appRouter = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path: "/jobs",
+    element: <Jobs />,
+  },
+  {
+    path: "/browse",
+    element: <Browse />,
   },
 ]);
 
