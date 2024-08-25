@@ -6,7 +6,7 @@ const HackathonList = () => {
   return (
     <div className="bg-indigo-200 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-extrabold text-yellow-600 mb-12 text-center">
+        <h1 className="text-4xl font-extrabold text-slate-600 mb-12 text-center">
           Upcoming Hackathons
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -15,7 +15,7 @@ const HackathonList = () => {
             return (
               <div
                 key={id}
-                className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 p-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-xl"
+                className="bg-gradient-to-r from-blue-400 via-indigo-500 to-blue-600 p-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-xl"
               >
                 <h2 className="text-3xl font-bold text-white mb-3">{title}</h2>
                 <p className="text-white mb-1">

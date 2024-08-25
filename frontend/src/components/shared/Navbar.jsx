@@ -8,9 +8,12 @@ import {
 } from "@radix-ui/react-popover";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { LogOut, User2 } from "lucide-react";
+import { useSelector } from "react-redux";
+import store from "@/redux/store";
 
 const Navbar = () => {
-  const user = false;
+  // const user = false;
+  const { user } = useSelector((store) => store.auth);
   return (
     <div className="bg-gradient-to-r from-indigo-100 to-indigo-200 shadow-md">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
@@ -85,7 +88,9 @@ const Navbar = () => {
                 <div className="flex flex-col">
                   <div className="flex items-center">
                     <User2 />
-                    <Button variant="link">View Profile</Button>
+                    <Button variant="link">
+                      <Link to="/profile">View Profile</Link>
+                    </Button>
                   </div>
                   <div className="-mt-2 flex items-center">
                     <LogOut />
