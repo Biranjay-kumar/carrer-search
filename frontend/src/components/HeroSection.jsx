@@ -7,6 +7,7 @@ import { Search } from "lucide-react";
 const HeroSection = () => {
   return (
     <div className="text-center gap-2 bg-gradient-to-r from-indigo-100 to-indigo-200 shadow-md py-12">
+      {/* Seize New Opportunities Link */}
       <motion.span
         className="px-4 py-2 rounded-full text-[#a92c2c] font-medium bg-white shadow-lg inline-block mb-4"
         initial={{ opacity: 0, y: -20 }}
@@ -20,6 +21,23 @@ const HeroSection = () => {
           Seize New Opportunities
         </Link>
       </motion.span>
+
+      {/* Hackathon Link */}
+      <motion.span
+        className="px-4 py-2 rounded-full text-[#2ca92c] font-medium bg-white shadow-lg inline-block mb-4 ml-2"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <Link
+          to="/hackathon"
+          className="inline-block transform transition-transform duration-300 hover:scale-105 hover:text-green-500 text-green-700"
+        >
+          Join Our Hackathon
+        </Link>
+      </motion.span>
+
+      {/* Main Heading */}
       <motion.h1
         className="text-4xl font-bold leading-tight text-slate-600"
         initial={{ opacity: 0 }}
@@ -40,7 +58,9 @@ const HeroSection = () => {
           Land Your Dream Career
         </motion.span>
       </motion.h1>
-      <div className="flex w-[40%] shadow-lg border border-indigo-300 pl-4  bg-white rounded-md items-center gap-2 mx-auto">
+
+      {/* Search Bar */}
+      <div className="flex w-[40%] shadow-lg border border-indigo-300 pl-4 bg-white rounded-md items-center gap-2 mx-auto">
         <input
           type="text"
           placeholder="Find your dream job"

@@ -6,6 +6,8 @@ import Signup from "./components/auth/Signup";
 import Home from "./Home";
 import Jobs from "./components/Jobs";
 import Browse from "./components/Browse";
+import HackathonPage from "./components/HackathonPage";
+import HackathonsList from "./components/HackathonList";
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -27,6 +29,15 @@ const appRouter = createBrowserRouter([
     path: "/browse",
     element: <Browse />,
   },
+  {
+    path:"/hackathon",
+    element:<HackathonsList/>
+  },
+  {
+    path:"/hackathon/:id",
+    element:<HackathonPage />
+  }
+       
 ]);
 
 function App() {
