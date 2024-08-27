@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./shared/Navbar";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
@@ -6,12 +6,13 @@ import { Contact, Mail, Pen } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Label } from "./ui/label";
 import AppliedJobTable from "./AppliedJobTable";
+import UpdateProfileDilog from "./UpdateProfileDilog";
 
 const skills = ["Frontend", "Backend", "Fullstack", "Datascience"];
+const isResume = true;
 
 const Profile = () => {
-  const isResume = true;
-
+  const [open, setOpen] = useState(false);
   return (
     <div className="bg-gray-100 min-h-screen">
       <Navbar />
@@ -41,6 +42,7 @@ const Profile = () => {
             </div>
           </div>
           <Button
+            onClick={() => setOpen(true)}
             variant="outline"
             className="flex items-center gap-2 border-green-500 text-green-500 hover:bg-green-100"
           >
@@ -89,6 +91,7 @@ const Profile = () => {
             <div className="bg-gray-100 p-4 rounded-lg shadow">
               <AppliedJobTable />
             </div>
+            <UpdateProfileDilog open={open} setOpen={setOpen} />
           </div>
         </div>
       </div>
