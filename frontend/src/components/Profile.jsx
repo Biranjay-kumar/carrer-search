@@ -46,7 +46,7 @@ const Profile = () => {
             variant="outline"
             className="flex items-center gap-2 border-green-500 text-green-500 hover:bg-green-100"
           >
-            <Pen className="w-4 h-4" />
+            <Pen onClick={()=>setOpen(true)} className="w-4 h-4" />
             Update
           </Button>
         </div>

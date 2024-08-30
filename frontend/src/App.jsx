@@ -10,6 +10,7 @@ import HackathonPage from "./components/HackathonPage";
 import HackathonsList from "./components/HackathonList";
 import Profile from "./components/Profile";
 import JobDescription from "./components/JobDescription";
+import FeedbackForm from "./components/Feedback";
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -46,6 +47,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
+  },
+  {
+    path: "/feedback",
+    element: <FeedbackForm />,
   },
 ]);
 
