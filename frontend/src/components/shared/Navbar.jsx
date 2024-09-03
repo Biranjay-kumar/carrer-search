@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import {
   Popover,
@@ -8,12 +8,33 @@ import {
 } from "@radix-ui/react-popover";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { LogOut, User2 } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import store from "@/redux/store";
+import axios from "axios";
+import { USER_API_END_POINT } from "@/utils/constant";
+import { setUser } from "@/redux/authSlice";
+import { toast } from "sonner";
 
 const Navbar = () => {
   // const user = false;
   const { user } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get(`${USER_API_END_POINT}/logout`, {
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        dispatch(setUser(null));
+        navigate("/");
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data.message);
+    }
+  };
   return (
     <div className="bg-gradient-to-r from-indigo-100 to-indigo-200 shadow-md">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
@@ -70,7 +91,7 @@ const Navbar = () => {
                   <AvatarImage
                     height={32}
                     width={32}
-                    src="https://github.com/shadcn.png"
+                    src={user?.profile?.profilePhoto}
                     alt="@shadcn"
                     className="rounded-full"
                   />
@@ -80,7 +101,7 @@ const Navbar = () => {
                 <div className="flex items-center gap-4">
                   <div>
                     <h4 className="text-lg font-semibold text-gray-800">
-                      Biranjay Kumar
+                     {user?.fullname}
                     </h4>
                     {/* <p className="text-gray-600">You are a good boy</p> */}
                   </div>
@@ -94,7 +115,9 @@ const Navbar = () => {
                   </div>
                   <div className="-mt-2 flex items-center">
                     <LogOut />
-                    <Button variant="link">Logout</Button>
+                    <Button onClick={logoutHandler} variant="link">
+                      Logout
+                    </Button>
                   </div>
                 </div>
               </PopoverContent>

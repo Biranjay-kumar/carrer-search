@@ -7,12 +7,17 @@ import { Badge } from "./ui/badge";
 import { Label } from "./ui/label";
 import AppliedJobTable from "./AppliedJobTable";
 import UpdateProfileDilog from "./UpdateProfileDilog";
+import { useSelector } from "react-redux";
 
 const skills = ["Frontend", "Backend", "Fullstack", "Datascience"];
 const isResume = true;
 
 const Profile = () => {
+  const { user } = useSelector((store) => store.auth);
+  console.log("User data:", user);
+
   const [open, setOpen] = useState(false);
+
   return (
     <div className="bg-gray-100 min-h-screen">
       <Navbar />
@@ -28,16 +33,16 @@ const Profile = () => {
             </Avatar>
             <div className="flex flex-col">
               <h1 className="font-semibold text-2xl text-gray-800">
-                Full Name
+                {user?.fullname}
               </h1>
-              <p className="text-gray-600 mb-2">Add your bio here</p>
+              <p className="text-gray-600 mb-2">{user?.profile?.bio}</p>
               <div className="flex items-center text-gray-600">
                 <Mail className="w-5 h-5 mr-2" />
-                <span>birnajaykumar@gmail.com</span>
+                <span>{user?.email}</span>
               </div>
               <div className="flex items-center text-gray-600 mt-2">
                 <Contact className="w-5 h-5 mr-2" />
-                <span>+91 9876543210</span>
+                <span>{user?.phoneNumber}</span>
               </div>
             </div>
           </div>
@@ -46,7 +51,7 @@ const Profile = () => {
             variant="outline"
             className="flex items-center gap-2 border-green-500 text-green-500 hover:bg-green-100"
           >
-            <Pen onClick={()=>setOpen(true)} className="w-4 h-4" />
+            <Pen onClick={() => setOpen(true)} className="w-4 h-4" />
             Update
           </Button>
         </div>
@@ -54,17 +59,12 @@ const Profile = () => {
         <div className="mt-8">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Skills</h2>
           <div className="flex gap-2">
-            {skills.length !== 0 ? (
-              skills.map((item, index) => (
-                <Badge
-                  key={index}
-                  className="bg-green-500 text-white px-3 py-1 rounded-full"
-                >
-                  {item}
-                </Badge>
+            {user?.profile?.skills.length !== 0 ? (
+              user?.profile?.skills.map((item, index) => (
+                <Badge key={index}>{item}</Badge>
               ))
             ) : (
-              <span>N/A</span>
+              <span>NA</span>
             )}
           </div>
 
@@ -72,15 +72,14 @@ const Profile = () => {
             <Label className="text-md font-bold">Resume</Label>
             {isResume ? (
               <a
-                className="text-blue-500 hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://drive.google.com/file/d/1XDfwY4hV4X48_9pPDPNxHfRC_xDzgYMI/view"
+                target="blank"
+                href={user?.profile?.resume}
+                className="text-blue-500 w-full hover:underline cursor-pointer"
               >
-                Biranjay Resume
+                {user?.profile?.resumeOriginalName}
               </a>
             ) : (
-              <span>N/A</span>
+              <span>NA</span>
             )}
           </div>
 
