@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge } from "./ui/badge";
 
-const LatestJobCart = () => {
+const LatestJobCart = ({ job }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm mx-auto my-4">
       <div className="flex items-center mb-4">
@@ -12,32 +12,34 @@ const LatestJobCart = () => {
           </div>
         </div>
         <div className="ml-4">
-          <h1 className="text-2xl font-semibold text-gray-800">Company Name</h1>
+          <h1 className="text-2xl font-semibold text-gray-800">
+            {job?.company?.name}
+          </h1>
           <p className="text-gray-600 text-sm">India</p>
         </div>
       </div>
       <div className="mb-4">
-        <h2 className="text-xl font-semibold text-gray-800">Job Title</h2>
-        <p className="text-gray-600">Software Developer</p>
+        <h2 className="text-xl font-semibold text-gray-800">{job?.title}</h2>
+        <p className="text-gray-600">{job?.description}</p>
       </div>
       <div className="flex flex-wrap gap-2">
         <Badge
           className="bg-blue-500 text-white font-bold py-1 px-3 rounded-md"
           variant="ghost"
         >
-          12 Positions
+          {job?.position} Positions
         </Badge>
         <Badge
           className="bg-blue-500 text-white font-bold py-1 px-3 rounded-md"
           variant="ghost"
         >
-          Part Time
+          {job?.jobType}
         </Badge>
         <Badge
           className="bg-blue-500 text-white font-bold py-1 px-3 rounded-md"
           variant="ghost"
         >
-          12 LPA
+          {job?.salary} LPA
         </Badge>
       </div>
     </div>

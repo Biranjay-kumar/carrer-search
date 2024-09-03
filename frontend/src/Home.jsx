@@ -6,9 +6,10 @@ import HeroSection from "./components/HeroSection";
 import LatestJobs from "./components/LatestJobs";
 import Navbar from "./components/shared/Navbar";
 import SuccessStories from "./components/successStories";
-
+import useGetAllJobs from "./hooks/useGetAllJobs";
 
 const Home = () => {
+  useGetAllJobs();
   return (
     <div>
       <Navbar />
