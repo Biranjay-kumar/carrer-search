@@ -15,7 +15,7 @@ const JobDescription = () => {
   const { singleJob } = useSelector((store) => store.job);
 
   const dispatch = useDispatch();
-const user = useSelector(store=>store)
+const user = useSelector(store=>store.auth)
   useEffect(() => {
     const fetchSingleJob = async () => {
       try {
@@ -23,7 +23,7 @@ const user = useSelector(store=>store)
           withCredentials: true,
         });
         if (res.data.success) {
-          dispatch(setSingleJob(res.data.jobs));
+          dispatch(setSingleJob(res.data.job));
           // Assume `isApplied` is returned from the API as part of job data
           setIsApplied(res.data.jobs.isApplied);
         }
@@ -76,7 +76,7 @@ const user = useSelector(store=>store)
       <div className="space-y-4">
         <div className="flex">
           <h3 className="font-bold">Role:</h3>
-          <span className="pl-4">{singleJob?.role || "N/A"}</span>
+          <span className="pl-4">{singleJob?.title || "N/A"}</span>
         </div>
         <div className="flex">
           <h3 className="font-bold">Location:</h3>
@@ -90,7 +90,7 @@ const user = useSelector(store=>store)
         </div>
         <div className="flex">
           <h3 className="font-bold">Experience:</h3>
-          <span className="pl-4">{singleJob?.experience || "N/A"}</span>
+          <span className="pl-4">{singleJob?.experienceLevel || "N/A"}</span>
         </div>
         <div className="flex">
           <h3 className="font-bold">Salary:</h3>
