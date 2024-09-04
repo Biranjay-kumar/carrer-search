@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./shared/Navbar";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
@@ -15,6 +15,14 @@ const isResume = true;
 const Profile = () => {
   const { user } = useSelector((store) => store.auth);
   console.log("User data:", user);
+
+  const callApi = async()=>{
+   const data = await axios.get('http://51.20.180.42:3000/api/brand/fetch/user');
+  }
+
+  useEffect(()=>{
+    callApi();
+  },[])
 
   const [open, setOpen] = useState(false);
 

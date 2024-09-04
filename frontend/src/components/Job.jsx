@@ -5,7 +5,7 @@ import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { Badge } from "./ui/badge";
 import { useNavigate } from "react-router-dom";
 
-const Job = () => {
+const Job = ({job}) => {
   const navigate = useNavigate();
   const jobId = "abcdefghi"
   return (
@@ -26,15 +26,14 @@ const Job = () => {
           />
         </Avatar>
         <div>
-          <h2 className="text-lg font-semibold text-gray-800">Company Name</h2>
+          <h2 className="text-lg font-semibold text-gray-800">{job.company?.name}</h2>
           <p className="text-sm text-gray-600">India</p>
         </div>
       </div>
       <div>
-        <h1 className="font-bold">Title</h1>
+        <h1 className="font-bold">{job.title}</h1>
         <p>
-          InnovateTech Solutions is a leading technology company specializing in
-          cutting-edge software development and IT services.
+          {job?.description}
         </p>
       </div>
       <div className="flex flex-wrap gap-2">
@@ -42,23 +41,23 @@ const Job = () => {
           className="bg-blue-500 text-white font-bold py-1 px-3 rounded-md"
           variant="ghost"
         >
-          12 Positions
+          {job?.position} Positions
         </Badge>
         <Badge
           className="bg-blue-500 text-white font-bold py-1 px-3 rounded-md"
           variant="ghost"
         >
-          Part Time
+          {job?.jobType}
         </Badge>
         <Badge
           className="bg-blue-500 text-white font-bold py-1 px-3 rounded-md"
           variant="ghost"
         >
-          12 LPA
+          {job?.salary} LPA
         </Badge>
       </div>
       <div className="flex items-center gap-4 mt-4">
-        <Button onClick={()=>navigate(`/description/${jobId}`)} variant="outline">Details</Button>
+        <Button onClick={()=>navigate(`/description/${job?._id}`)} variant="outline">Details</Button>
         <Button className="bg-indigo-500">Save for Later</Button>
       </div>
     </div>
