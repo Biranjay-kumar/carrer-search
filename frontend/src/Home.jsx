@@ -8,7 +8,7 @@ import LatestJobs from "./components/LatestJobs";
 import Navbar from "./components/shared/Navbar";
 import SuccessStories from "./components/successStories";
 import useGetAllJobs from "./hooks/useGetAllJobs";
-
+import axios from 'axios';
 const Home = () => {
   const callApi = async () => {
     const data = await axios.get(
