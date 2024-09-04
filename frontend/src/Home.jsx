@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import CareerAdviceBlog from "./components/CarrerAdvise";
 import CategoryCarousel from "./components/CategoryCarousel";
 import FAQPage from "./components/FAQPage";
@@ -13,6 +14,8 @@ const Home = () => {
     const data = await axios.get(
       "http://51.20.180.42:3000/api/brand/fetch/user"
     );
+    console.log(data);
+    
   };
 
   useEffect(() => {
