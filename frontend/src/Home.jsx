@@ -12,7 +12,7 @@ import axios from 'axios';
 const Home = () => {
   const callApi = async () => {
     const data = await axios.get(
-      "http://51.20.180.42:3000/api/brand/fetch/user"
+      "https://d3qhqrhe9asm02.cloudfront.net/api/brand/fetch/user"
     );
     console.log(data);
     
