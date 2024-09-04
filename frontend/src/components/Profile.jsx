@@ -16,13 +16,7 @@ const Profile = () => {
   const { user } = useSelector((store) => store.auth);
   console.log("User data:", user);
 
-  const callApi = async()=>{
-   const data = await axios.get('http://51.20.180.42:3000/api/brand/fetch/user');
-  }
-
-  useEffect(()=>{
-    callApi();
-  },[])
+  
 
   const [open, setOpen] = useState(false);
 
