@@ -3,19 +3,53 @@ import { Button } from "./ui/button";
 import { IoArrowBack } from "react-icons/io5";
 import { Link, useParams } from "react-router-dom";
 import { setSingleJob } from "@/redux/jobSlice";
-import { JOB_API_END_POINT } from "@/utils/constant";
+import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from "@/utils/constant";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
 
 const JobDescription = () => {
-  const [isApplied, setIsApplied] = useState(false); // Handle applied state
   const params = useParams();
   const jobId = params.id;
-  const { singleJob } = useSelector((store) => store.job);
-
   const dispatch = useDispatch();
-const user = useSelector(store=>store.auth)
+
+  // Get user and singleJob from Redux store
+  const { singleJob } = useSelector((store) => store.job);
+  const user = useSelector((store) => store.auth);
+
+  // Check if user has applied initially
+  const isInitiallyApplied =
+    singleJob?.applications?.some(
+      (application) => application.applicant === user?._id
+    ) || false;
+
+  const [isApplied, setIsApplied] = useState(isInitiallyApplied);
+
+  // Handle job application
+  const applyJobHandler = async () => {
+    try {
+      const res = await axios.get(
+        `${APPLICATION_API_END_POINT}/apply/${jobId}`,
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        setIsApplied(true); // Mark job as applied
+        // Update local singleJob applications list with the current user's application
+        const updatedSingleJob = {
+          ...singleJob,
+          applications: [...singleJob.applications, { applicant: user?._id }],
+        };
+        dispatch(setSingleJob(updatedSingleJob)); // Update Redux store
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  };
+
+  // Fetch single job data when component mounts
   useEffect(() => {
     const fetchSingleJob = async () => {
       try {
@@ -24,12 +58,15 @@ const user = useSelector(store=>store.auth)
         });
         if (res.data.success) {
           dispatch(setSingleJob(res.data.job));
-          // Assume `isApplied` is returned from the API as part of job data
-          setIsApplied(res.data.jobs.isApplied);
+          setIsApplied(
+            res.data.job.applications.some(
+              (application) => application.applicant === user?._id
+            )
+          );
+          setIsApplied(userApplied); // Set applied status
         }
       } catch (error) {
         console.error("Error fetching job:", error);
-        // Optionally handle error state here, e.g., setError(true);
       }
     };
     fetchSingleJob();
@@ -60,6 +97,7 @@ const user = useSelector(store=>store.auth)
           </Badge>
         </div>
         <Button
+          onClick={isApplied ? null : applyJobHandler}
           disabled={isApplied}
           className={`text-white font-semibold py-2 px-6 rounded-md transition-all ${
             isApplied
@@ -98,11 +136,15 @@ const user = useSelector(store=>store.auth)
         </div>
         <div className="flex">
           <h3 className="font-bold">Total Applications:</h3>
-          <span className="pl-4">{singleJob?.applications || "N/A"}</span>
+          <span className="pl-4">
+            {singleJob?.applications?.length || "N/A"}
+          </span>
         </div>
         <div className="flex">
           <h3 className="font-bold">Posted Date:</h3>
-          <span className="pl-4">{singleJob?.postedDate || "N/A"}</span>
+          <span className="pl-4">
+            {singleJob?.createdAt?.split("T")[0] || "N/A"}
+          </span>
         </div>
       </div>
     </div>
