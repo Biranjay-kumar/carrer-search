@@ -11,6 +11,9 @@ import HackathonsList from "./components/HackathonList";
 import Profile from "./components/Profile";
 import JobDescription from "./components/JobDescription";
 import FeedbackForm from "./components/Feedback";
+import Companies from "./components/admin/Companies";
+import CompanyCreate from "./components/admin/CompanyCreate";
+import CompanySetup from "./components/admin/CompanySetup";
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -51,6 +54,19 @@ const appRouter = createBrowserRouter([
   {
     path: "/feedback",
     element: <FeedbackForm />,
+  },
+  //admin ke liye yaha se start hoga
+  {
+    path: "/admin/companies",
+    element: <Companies />,
+  },
+  {
+    path: "/admin/companies/create",
+    element: <CompanyCreate />,
+  },
+  {
+    path: "/admin/companies/:id",
+    element: <CompanySetup />,
   },
 ]);
 

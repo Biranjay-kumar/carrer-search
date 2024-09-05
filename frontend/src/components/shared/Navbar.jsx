@@ -39,34 +39,60 @@ const Navbar = () => {
     <div className="bg-gradient-to-r from-indigo-100 to-indigo-200 shadow-md">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
         <div>
-          <h1 className="text-4xl font-extrabold text-gray-800">
+          <h1 className="text-4xl font-semibold text-gray-800">
             <span className="text-blue-600">Career</span>
             <span className="text-purple-600">Search</span>
           </h1>
         </div>
         <div className="flex items-center gap-8">
           <ul className="flex gap-6 items-center font-medium text-gray-700">
-            <li>
-              <Link to="/" className="hover:text-blue-600 transition-colors">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/jobs"
-                className="hover:text-blue-600 transition-colors"
-              >
-                Jobs
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/browse"
-                className="hover:text-blue-600 transition-colors"
-              >
-                Browse
-              </Link>
-            </li>
+            {user && user?.role === "recruiter" ? (
+              <>
+                <li>
+                  <Link
+                    to="/admin/companies"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    Companies
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="admin/jobs"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    Jobs
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link
+                    to="/"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/jobs"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    Jobs
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/browse"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    Browse
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
           {!user ? (
             <div className="flex items-center gap-2">
@@ -107,12 +133,15 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <div className="flex items-center">
-                    <User2 />
-                    <Button variant="link">
-                      <Link to="/profile">View Profile</Link>
-                    </Button>
-                  </div>
+                  {user && user.role === "student" && (
+                    <div className="flex items-center">
+                      <User2 />
+                      <Button variant="link">
+                        <Link to="/profile">View Profile</Link>
+                      </Button>
+                    </div>
+                  )}
+
                   <div className="-mt-2 flex items-center">
                     <LogOut />
                     <Button onClick={logoutHandler} variant="link">
