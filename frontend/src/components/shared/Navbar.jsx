@@ -40,8 +40,10 @@ const Navbar = () => {
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
         <div>
           <h1 className="text-4xl font-semibold text-gray-800">
+            <Link to="/">
             <span className="text-blue-600">Career</span>
             <span className="text-purple-600">Search</span>
+            </Link>
           </h1>
         </div>
         <div className="flex items-center gap-8">
