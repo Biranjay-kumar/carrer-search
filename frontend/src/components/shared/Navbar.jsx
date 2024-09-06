@@ -60,7 +60,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link
-                    to="admin/jobs"
+                    to="/admin/jobs"
                     className="hover:text-blue-600 transition-colors"
                   >
                     Jobs
