@@ -85,14 +85,14 @@ const Navbar = () => {
                     Jobs
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     to="/browse"
                     className="hover:text-blue-600 transition-colors"
                   >
                     Browse
                   </Link>
-                </li>
+                </li> */}
               </>
             )}
           </ul>

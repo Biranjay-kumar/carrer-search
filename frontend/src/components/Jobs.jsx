@@ -4,8 +4,6 @@ import FilterCard from "./FilterCard";
 import Job from "./Job";
 import { useSelector } from "react-redux";
 
-const jobsArray = [1, 2, 3, 4, 5, 6, 7, 8];
-
 const Jobs = () => {
   const { allJobs, searchedQuery } = useSelector((store) => store.job);
   const [filterJobs, setFilterJobs] = useState(allJobs);
@@ -21,7 +19,7 @@ const Jobs = () => {
           job?.location?.toLowerCase().includes(searchedQuery.toLowerCase())
         );
       });
-      setFilterJobs(filteredJobs)
+      setFilterJobs(filteredJobs);
     } else {
       setFilterJobs(allJobs);
     }
