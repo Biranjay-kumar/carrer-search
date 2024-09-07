@@ -1,4 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { Edit2, MoreHorizontal } from "lucide-react";
+import { useEffect, useState } from "react";
+import { FaEye } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import {
   Table,
   TableBody,
@@ -8,11 +13,6 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { Avatar, AvatarImage } from "../ui/avatar";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Edit2, MoreHorizontal } from "lucide-react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const AdminJobsTable = () => {
   const formatDateCustom = (dateString) => {
@@ -52,9 +52,10 @@ const AdminJobsTable = () => {
       if (!searchJobByText || searchJobByText.trim() === "") {
         return true; // Show all companies when input is cleared
       }
-      return job?.title
-        .toLowerCase()
-        .includes(searchJobByText.toLowerCase()) || job?.company?.name.toLowerCase().includes(searchJobByText.toLowerCase())
+      return (
+        job?.title.toLowerCase().includes(searchJobByText.toLowerCase()) ||
+        job?.company?.name.toLowerCase().includes(searchJobByText.toLowerCase())
+      );
     });
 
     setFilterJobs(filteredJobs);
@@ -109,6 +110,17 @@ const AdminJobsTable = () => {
                         <Edit2 className="w-4" />
                         <span>Edit</span>
                       </div>
+                      {/* ########## */}
+                      <div
+                        onClick={() =>
+                          navigate(`/admin/jobs/${job._id}/applicants`)
+                        }
+                        className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 p-2 rounded-md"
+                      >
+                        <FaEye className="w-4 h-4" />
+                        <span>Apply</span>
+                      </div>
+                      {/* ########## */}
                     </PopoverContent>
                   </Popover>
                 </TableCell>
