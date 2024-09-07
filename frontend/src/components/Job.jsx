@@ -35,13 +35,13 @@ const Job = ({ job }) => {
         </Avatar>
         <div>
           <h2 className="text-lg font-semibold text-gray-800">
-            {job.company?.name}
+            {job?.company?.name}
           </h2>
           <p className="text-sm text-gray-600">India</p>
         </div>
       </div>
       <div>
-        <h1 className="font-bold">{job.title}</h1>
+        <h1 className="font-bold">{job?.title}</h1>
         <p>{job?.description}</p>
       </div>
       <div className="flex flex-wrap gap-2">

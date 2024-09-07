@@ -1,9 +1,14 @@
 import React from "react";
 import { Badge } from "./ui/badge";
+import { useNavigate } from "react-router-dom";
 
 const LatestJobCart = ({ job }) => {
+  const navigate = useNavigate();
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm mx-auto my-4">
+    <div
+      onClick={() => navigate(`/description/${job._id}`)}
+      className="bg-white rounded-lg shadow-lg p-6 max-w-sm mx-auto my-4 cursor-pointer"
+    >
       <div className="flex items-center mb-4">
         <div className="flex-shrink-0">
           {/* Replace with a company logo if available */}

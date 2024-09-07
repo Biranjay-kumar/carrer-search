@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Search } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { setSearchedQuery } from "@/redux/jobSlice";
 
 const HeroSection = () => {
+  const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const searchJobHandler = () => {
+    dispatch(setSearchedQuery(query));
+    navigate("/browse")
+  };
+
   return (
     <div className="text-center gap-2 bg-gradient-to-r from-indigo-100 to-indigo-200 shadow-md py-12">
       {/* Seize New Opportunities Link */}
@@ -64,9 +74,13 @@ const HeroSection = () => {
         <input
           type="text"
           placeholder="Find your dream job"
+          onChange={(e) => setQuery(e.target.value)}
           className="outline-none border-none w-full text-indigo-900 placeholder-indigo-300"
         />
-        <Button className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-md p-2">
+        <Button
+          onClick={searchJobHandler}
+          className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-md p-2"
+        >
           <Search className="h-5 w-5" />
         </Button>
       </div>
