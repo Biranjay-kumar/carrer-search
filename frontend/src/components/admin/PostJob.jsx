@@ -12,8 +12,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-
-const companyArray = [];
+import axios from "axios";
+import { JOB_API_END_POINT } from "@/utils/constant";
+import { toast } from "sonner";
 
 const PostJob = () => {
   const [input, setInput] = useState({
@@ -33,8 +34,39 @@ const PostJob = () => {
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+
+  const selectChangeHandler = (value) => {
+    const selectedCompany = companies.find(
+      (company) => company.name.toLowerCase() === value
+    );
+    setInput({ ...input, companyId: selectedCompany._id });
+  };
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      console.log(input)
+      const res = await axios.post(`${JOB_API_END_POINT}/post`, input, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        toast.success(res.data.message);
+        navigate("/admin/jobs");
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+    finally{
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-blue-50">
@@ -44,7 +76,10 @@ const PostJob = () => {
           <h1 className="text-3xl font-bold text-center text-gray-700 mb-6">
             Post a New Job
           </h1>
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form
+            onSubmit={submitHandler}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          >
             {/* Title */}
             <div className="md:col-span-2">
               <Label htmlFor="title">Job Title</Label>
@@ -145,19 +180,19 @@ const PostJob = () => {
                 className="border border-gray-300 rounded-lg mt-2 w-full p-2"
               />
             </div>
+            {/* Company Select */}
             {companies.length > 0 ? (
-              <Select
-                onValueChange={(value) =>
-                  setInput({ ...input, companyId: value })
-                }
-              >
+              <Select onValueChange={selectChangeHandler}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a company" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     {companies.map((company) => (
-                      <SelectItem key={company._id} value={company._id}>
+                      <SelectItem
+                        key={company._id}
+                        value={company?.name?.toLowerCase()}
+                      >
                         {company.name}
                       </SelectItem>
                     ))}
@@ -169,14 +204,15 @@ const PostJob = () => {
                 Please register a company first before posting a job
               </p>
             )}
-          </form>
 
-          <button
-            onClick={() => setLoading(true)}
-            className="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
-          >
-            {loading ? "Submitting..." : "Post Job"}
-          </button>
+            {/* Submit Button */}
+            <button
+              type="submit" // Set this as submit type
+              className="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+            >
+              {loading ? "Submitting..." : "Post Job"}
+            </button>
+          </form>
         </div>
       </div>
     </div>

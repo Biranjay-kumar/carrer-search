@@ -28,7 +28,7 @@ const Job = ({ job }) => {
       <div className="flex items-center gap-3">
         <Avatar className="flex-shrink-0">
           <AvatarImage
-            src="/carrer-logo.webp"
+            src={job?.company?.logo}
             alt="Company Logo"
             className="h-10 w-10 rounded-full"
           />
