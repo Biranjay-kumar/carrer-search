@@ -8,15 +8,15 @@ import { Label } from "./ui/label";
 import AppliedJobTable from "./AppliedJobTable";
 import UpdateProfileDilog from "./UpdateProfileDilog";
 import { useSelector } from "react-redux";
+import useGetAppliedJobs from "@/hooks/useGetAppliedJobs";
 
 const skills = ["Frontend", "Backend", "Fullstack", "Datascience"];
 const isResume = true;
 
 const Profile = () => {
+  useGetAppliedJobs();
   const { user } = useSelector((store) => store.auth);
   console.log("User data:", user);
-
-  
 
   const [open, setOpen] = useState(false);
 
@@ -81,7 +81,7 @@ const Profile = () => {
                 {user?.profile?.resumeOriginalName}
               </a>
             ) : (
-              <span>NA</span>
+              <span>N/A</span>
             )}
           </div>
 
